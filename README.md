@@ -1,68 +1,102 @@
-# 🚨 Day 6: Fraud Alert Voice Agent
+---
 
-A voice-powered fraud detection agent built with LiveKit Agents and Murf AI TTS that verifies customers and investigates suspicious transactions for SecureBank.
+# 🔔 AI Voice Agent Challenge | Day 6: Fraud Alert Voice Agent
+A real-time **Fraud Detection Voice Agent** built using **LiveKit Agents, Murf AI Falcon TTS, Deepgram STT, and Google Gemini**.
+This AI agent calls customers, verifies identity (safely), and investigates suspicious transactions — all through natural conversation.
 
-## 🎯 Features
+---
 
-### Fraud Detection Capabilities
-- **Customer Verification** - Securely verifies identity using security questions (no sensitive data requested)
-- **Transaction Investigation** - Reads out suspicious transaction details clearly
-- **Real-time Decision Making** - Marks transactions as safe or fraudulent based on customer confirmation
-- **Database Integration** - Loads cases from JSON database and persists outcomes
-- **Professional Call Flow** - Follows banking industry best practices for fraud calls
+# 🌟 Key Features
 
-### Security Features
-- ✅ Never asks for full card numbers, PINs, or passwords
-- ✅ Uses only non-sensitive verification (security questions)
-- ✅ Maximum 2 verification attempts before call termination
-- ✅ All data is fake/demo only
-- ✅ Clear audit trail in database
+## 🔍 Fraud Detection Capabilities
 
-### Call Flow
-1. **Introduction** - Agent identifies itself as SecureBank Fraud Department
-2. **Name Collection** - Asks for customer's full name
-3. **Case Loading** - Retrieves fraud case from database
-4. **Verification** - Asks security question (2 attempts max)
-5. **Transaction Details** - Reads suspicious transaction information
-6. **Confirmation** - Asks if customer made the transaction
-7. **Action & Closing** - Takes appropriate action and confirms outcome
+* **Customer Identity Verification**
+  Secure, non-sensitive verification using preset security questions
+* **Suspicious Transaction Review**
+  Reads transactions clearly and confirms with the user in real time
+* **Decision Handling**
+  Marks transactions as **safe**, **fraudulent**, or **verification_failed**
+* **Auto Database Updates**
+  Writes results into `fraud_cases.json` with timestamps
+* **Bank-grade Call Experience**
+  Professional flow inspired by real-world fraud call workflows
 
-### Voice Integration
-- **Murf AI Falcon TTS** - Ultra-fast, natural voice (Ryan voice)
-- **Deepgram STT** - Accurate speech recognition
-- **Google Gemini 2.5 Flash** - Intelligent conversation with function calling
+---
 
-## 🚀 Quick Start
+# 🔐 Security Principles (Important!)
 
-### Prerequisites
-- Python 3.11+
-- Node.js 18+
-- Murf AI API Key
-- Deepgram API Key
-- Google Gemini API Key
-- LiveKit Server
+* Never requests: **Card number, PIN, CVV, password, or OTP**
+* Only asks controlled, non-sensitive security questions
+* 2 verification attempts maximum
+* All cases use **fake/demo data**
+* Clear audit trail maintained in JSON database
 
-### Installation
+---
 
-1. **Clone the repository**
+# ☎️ Full Call Flow
+
+1. **Agent Introduction** – Identifies as SecureBank Fraud Department
+2. **Name Collection** – Gets the customer’s name
+3. **Case Loading** – Loads matching fraud case
+4. **Verification** – Asks 1 security question
+5. **Suspicious Transaction Details** – Reads out merchant, time, location, amount
+6. **Customer Confirmation** – “Did you make this transaction?”
+7. **Final Action**
+
+   * If **Yes** → Mark safe
+   * If **No** → Block the card + mark fraudulent
+   * If verification fails → terminate call
+
+---
+
+# 🎙️ Voice & AI Integration
+
+* **Murf AI Falcon TTS** → Natural Ryan voice (ultra-low latency)
+* **Deepgram STT** → Fast voice-to-text
+* **Gemini 2.5 Flash** → Reasoning + function calling
+* **LiveKit WebRTC** → Real-time audio streaming
+
+---
+
+# 🚀 Quick Start Guide
+
+## Prerequisites
+
+* Python **3.11+**
+* Node.js **18+**
+* LiveKit Server
+* API Keys:
+
+  * Murf AI
+  * Deepgram
+  * Google Gemini
+
+---
+
+# 🛠️ Installation Steps
+
+## 1️⃣ Clone Repository
+
 ```bash
-git clone https://github.com/GhanshyamJha05/fifth_day_Murf_api.git
-cd fifth_day_Murf_api/ten-days-of-voice-agents-2025
+git clone https://github.com/vikasyadav097/AI-Voice-Agent-Challenge-Day-6-Fraud-Alert-Voice-Agent
+cd ten-days-of-voice-agents-2025
 ```
 
-2. **Setup Backend**
+## 2️⃣ Backend Setup
+
 ```bash
 cd backend
 python -m venv .venv
-.venv\Scripts\activate  # Windows
-# or
-source .venv/bin/activate  # Mac/Linux
+.venv\Scripts\activate       # Windows
+source .venv/bin/activate    # Mac/Linux
 
 pip install -r requirements.txt
 ```
 
-3. **Configure Backend Environment**
+## 3️⃣ Backend Environment Setup
+
 Create `backend/.env.local`:
+
 ```env
 LIVEKIT_URL=ws://localhost:7880
 LIVEKIT_API_KEY=devkey
@@ -72,14 +106,17 @@ GOOGLE_API_KEY=your_gemini_key
 MURF_API_KEY=your_murf_key
 ```
 
-4. **Setup Frontend**
+## 4️⃣ Frontend Setup
+
 ```bash
 cd ../frontend
 npm install
 ```
 
-5. **Configure Frontend Environment**
+## 5️⃣ Frontend Environment
+
 Create `frontend/.env.local`:
+
 ```env
 LIVEKIT_URL=ws://localhost:7880
 LIVEKIT_API_KEY=devkey
@@ -87,234 +124,250 @@ LIVEKIT_API_SECRET=secret
 NEXT_PUBLIC_LIVEKIT_URL=ws://localhost:7880
 ```
 
-### Running the Application
+---
 
-1. **Start LiveKit Server** (Terminal 1)
+# ▶️ Running the Application
+
+## 1. Start LiveKit Server
+
 ```bash
 cd ten-days-of-voice-agents-2025
-./livekit-server.exe --dev  # Windows
-# or
-./livekit-server --dev  # Mac/Linux
+./livekit-server.exe --dev       # Windows
+./livekit-server --dev           # Mac/Linux
 ```
 
-2. **Start Fraud Agent** (Terminal 2)
+## 2. Start Fraud Agent
+
 ```bash
 cd backend
-.venv\Scripts\activate  # Windows
+.venv\Scripts\activate            # Windows
 python src/agent.py dev
 ```
 
-3. **Start Frontend** (Terminal 3)
+## 3. Start Frontend
+
 ```bash
 cd frontend
 npm run dev
 ```
 
-4. **Open Browser**
-Navigate to `http://localhost:3000`
+## 4. Visit App
 
-## 💬 Example Conversations
+👉 [http://localhost:3000](http://localhost:3000)
 
-### Scenario 1: Confirmed Safe Transaction
+---
+
+# 💬 Sample Conversations
+
+---
+
+### ✅ Scenario 1: Transaction Confirmed Safe
 
 ```
-Agent: "Hello, this is the Fraud Detection Department from SecureBank. I'm calling about unusual activity on your account. May I have your full name please?"
+Agent: "This is SecureBank Fraud Department. May I have your full name?"
 
 You: "John Smith"
 
-Agent: "Thank you, John. For security, what is your mother's maiden name?"
+Agent: "Thank you. For security, what is your mother's maiden name?"
 
 You: "Johnson"
 
-Agent: "Thank you for confirming. We detected a suspicious transaction on your card ending in 4242:
-- Amount: $1,247.99
-- Merchant: ABC Electronics Ltd
-- Location: Shanghai, China
-- Time: November 25, 2025 at 3:42 PM EST
+Agent: "Thanks. We found a suspicious transaction:
+- $1,247.99
+- ABC Electronics Ltd
+- Shanghai, China
+- Nov 25, 2025, 3:42 PM
 
-Did you make this transaction?"
+Did you make this purchase?"
 
-You: "Yes, I did"
+You: "Yes"
 
-Agent: "Thank you for confirming. We've marked this as legitimate. Your card remains active. Have a great day!"
+Agent: "Great, marking this as legitimate. Your card remains active."
 ```
 
-### Scenario 2: Confirmed Fraud
+---
+
+### ❌ Scenario 2: Fraud Confirmed
 
 ```
-Agent: "Hello, this is the Fraud Detection Department from SecureBank..."
-
-You: "Sarah Johnson"
-
 Agent: "For security, what city were you born in?"
 
 You: "Boston"
 
-Agent: "We detected a suspicious transaction on your card ending in 8765:
-- Amount: $3,599.00
-- Merchant: Luxury Watches International
-- Location: Moscow, Russia
-- Time: November 26, 2025 at 1:15 AM EST
+Agent: "Suspicious transaction detected:
+- $3,599.00
+- Luxury Watches International
+- Moscow, Russia
 
 Did you make this transaction?"
 
-You: "No, I didn't!"
+You: "No"
 
-Agent: "I understand. We've immediately blocked your card ending in 8765. A replacement will be mailed within 3-5 business days. You will not be charged for this transaction."
+Agent: "Thank you. We’ve blocked your card and issued a replacement."
 ```
 
-### Scenario 3: Verification Failed
+---
+
+### 🚫 Scenario 3: Verification Failed
 
 ```
-Agent: "Hello, this is the Fraud Detection Department from SecureBank..."
-
-You: "Michael Chen"
-
-Agent: "For security, what is your favorite color?"
+Agent: "What is your favorite color?"
 
 You: "Red"
 
-Agent: "I'm sorry, that doesn't match our records. You have 1 attempt remaining."
+Agent: "Doesn’t match. You have 1 attempt left."
 
 You: "Green"
 
-Agent: "I'm sorry, but for security reasons, I cannot proceed. Please visit your nearest branch. Goodbye."
+Agent: "Verification failed. Please visit your nearest branch."
 ```
 
-## 📊 Test Cases in Database
+---
 
-The system includes 5 pre-loaded fraud cases:
-
-1. **John Smith** - $1,247.99 from China (e-commerce)
-2. **Sarah Johnson** - $3,599.00 from Russia (luxury goods)
-3. **Michael Chen** - $899.50 from Nigeria (gaming)
-4. **Emily Davis** - $2,150.00 from Philippines (wire transfer)
-5. **Robert Wilson** - $567.25 from Romania (electronics)
-
-Each case includes:
-- Customer name and security question
-- Card ending digits
-- Transaction details (amount, merchant, location, time)
-- Status tracking (pending_review → confirmed_safe/confirmed_fraud)
-
-## 📁 Project Structure
+# 📂 Project Structure
 
 ```
 .
 ├── backend/
 │   ├── src/
-│   │   ├── agent.py          # Fraud alert agent with verification
-│   │   └── murf_tts.py       # Murf AI TTS integration
-│   ├── .env.local            # Backend environment variables
-│   └── pyproject.toml        # Python dependencies
+│   │   ├── agent.py
+│   │   └── murf_tts.py
+│   ├── .env.local
+│   └── pyproject.toml
 ├── frontend/
-│   ├── app/                  # Next.js app directory
-│   ├── components/           # React components
-│   ├── .env.local           # Frontend environment variables
-│   └── package.json         # Node dependencies
+│   ├── app/
+│   ├── components/
+│   ├── .env.local
+│   └── package.json
 ├── shared-data/
-│   └── fraud_cases.json      # Fraud cases database (auto-updated)
+│   └── fraud_cases.json
 ├── challenges/
-│   └── Day 6 Task.md         # Day 6 challenge documentation
-└── livekit-server.exe        # LiveKit server binary
+│   └── Day 6 Task.md
+└── livekit-server.exe
 ```
 
-## 🔧 Customization
+---
 
-### Add More Fraud Cases
+# 🔧 Customization
+
+## ➕ Add New Fraud Cases
 
 Edit `shared-data/fraud_cases.json`:
+
 ```json
 {
   "userName": "Your Name",
-  "securityIdentifier": "12345",
   "securityQuestion": "What is your pet's name?",
   "securityAnswer": "Fluffy",
   "cardEnding": "1234",
   "transactionAmount": "$999.99",
   "transactionName": "Suspicious Store",
-  "transactionTime": "November 26, 2025 at 10:00 PM",
-  "transactionCategory": "retail",
-  "transactionSource": "suspicious-site.com",
-  "transactionLocation": "Unknown Location",
-  "status": "pending_review",
-  "outcome": null
+  "transactionTime": "Nov 26, 2025 at 10:00 PM",
+  "transactionLocation": "Unknown",
+  "status": "pending_review"
 }
 ```
 
-### Change Bank Name
+## 🏦 Change Bank Name
 
-In `backend/src/agent.py`, update the instructions to use your bank name instead of "SecureBank".
+Update system prompt in:
+`backend/src/agent.py`
 
-### Modify Voice Settings
+## 🎙️ Modify Voice Style
 
 ```python
 tts=murf_tts.TTS(
-    voice="en-US-ryan",  # Change voice
-    style="Conversational",  # Change style
-    tokenizer=tokenize.basic.SentenceTokenizer(
-        min_sentence_len=5,  # Adjust response speed
-    ),
+    voice="en-US-ryan",
+    style="Conversational",
 )
 ```
 
-## 📊 Viewing Results
+---
 
-After each call, check `shared-data/fraud_cases.json` to see:
-- Updated status (`confirmed_safe`, `confirmed_fraud`, or `verification_failed`)
-- Outcome notes with timestamp
-- Complete audit trail
+# 📊 Viewing Results
 
-## 🛠️ Tech Stack
+Check updated outcomes in:
+`shared-data/fraud_cases.json`
 
-- **Backend**: Python 3.11, LiveKit Agents SDK
-- **Frontend**: Next.js 15, React, TypeScript
-- **Voice**: Murf AI Falcon TTS (fastest TTS API), Deepgram STT
-- **LLM**: Google Gemini 2.5 Flash with function calling
-- **Real-time**: LiveKit WebRTC
-- **Database**: JSON file storage (easily replaceable with SQL/MongoDB)
+Each case logs:
 
-## 🔒 Security Notes
-
-⚠️ **This is a demo application with fake data only!**
-
-- Never use real customer data
-- Never ask for real card numbers, PINs, or passwords
-- In production, use proper database encryption
-- Implement proper authentication and authorization
-- Follow PCI DSS compliance for real banking applications
-- Use secure communication channels (HTTPS/WSS)
-
-## 📝 API Keys Required
-
-1. **Murf AI** - Get from [murf.ai](https://murf.ai)
-2. **Deepgram** - Get from [deepgram.com](https://deepgram.com)
-3. **Google Gemini** - Get from [ai.google.dev](https://ai.google.dev)
-
-## 🎓 Learning Resources
-
-- [LiveKit Agents Documentation](https://docs.livekit.io/agents/)
-- [Murf AI API Docs](https://murf.ai/api-docs)
-- [Deepgram API Docs](https://developers.deepgram.com/)
-- [Google Gemini API Docs](https://ai.google.dev/docs)
-
-## 🤝 Contributing
-
-This is a challenge project, but feel free to fork and customize!
-
-## 📄 License
-
-MIT License - See LICENSE file for details
-
-## 🙏 Acknowledgments
-
-Built as part of the Murf AI Voice Agent Challenge - Day 6
-- Challenge by Murf AI
-- LiveKit for the agents framework
-- Inspired by real banking fraud detection systems
+* Verification results
+* Final decision (safe / fraud / verification_failed)
+* Timestamped audit trail
 
 ---
 
-**Made with ❤️ by Ghanshyam Jha**
+# 🛠️ Tech Stack
 
-**⚠️ Demo purposes only - Use fake data always!**
+* **Backend** — Python 3.11, LiveKit Agents
+* **Frontend** — Next.js 15, React, TypeScript
+* **Voice** — Murf Falcon TTS, Deepgram STT
+* **LLM** — Google Gemini 2.5 Flash
+* **Real-time** — LiveKit WebRTC
+* **Database** — JSON storage
+
+---
+
+# 🔒 Security Notes (Important)
+
+* Demo ONLY — use fake data
+* Do NOT implement with real card/customer data
+* For production, ensure:
+
+  * Encryption
+  * Token-based auth
+  * PCI DSS compliance
+  * Secure infrastructure
+
+---
+
+# 📝 API Keys Required
+
+* Murf AI
+* Deepgram
+* Google Gemini
+
+---
+
+# 📚 Learning Resources
+
+* LiveKit Agents
+* Murf API Docs
+* Deepgram Docs
+* Gemini API Docs
+
+---
+
+# 🤝 Contributing
+
+Pull requests and forks are welcome!
+
+---
+
+# 📄 License
+
+MIT License
+
+---
+
+# 🙏 Acknowledgments
+
+Built for **Murf AI Voice Agent Challenge — Day 6**
+Thanks to:
+
+* LiveKit
+* Murf AI
+* Deepgram
+* Google AI
+
+---
+| Day      | Status         |
+| -------- | -------------- |
+| Day 1    | ✅ Completed    |
+| Day 2    | ✅ Completed    |
+| Day 3    | ✅ Completed    |
+| Day 4    | ✅ Completed    |
+| Day 5    | ✅ Completed    |
+| Day 6    | ✅ Completed    |
+| Day 7–10 | 🔜 Coming soon |
+
